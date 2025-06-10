@@ -1,0 +1,1 @@
+vi build/lib/kotlinProject-1.0-SNAPSHOT.jar/META-INF/MANIFEST.MF
