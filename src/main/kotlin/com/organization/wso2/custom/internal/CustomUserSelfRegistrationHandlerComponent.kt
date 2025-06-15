@@ -1,4 +1,4 @@
-package com.turo.wso2.customhandler.internal
+package com.organization.wso2.custom.internal
 
 /*
  * Copyright (c) 2022, WSO2 Inc. (http://www.wso2.com).
@@ -19,10 +19,8 @@ package com.turo.wso2.customhandler.internal
  */
 
 
-import com.turo.wso2.customhandler.handler.CustomUserSelfRegistrationHandler
+import com.organization.wso2.custom.handler.CustomUserSelfRegistrationHandler
 import org.apache.commons.logging.LogFactory
-import org.osgi.framework.BundleActivator
-import org.osgi.framework.BundleContext
 import org.osgi.service.component.ComponentContext
 import org.osgi.service.component.annotations.Activate
 import org.osgi.service.component.annotations.Reference
@@ -37,7 +35,7 @@ import org.wso2.carbon.user.core.service.RealmService
 open class CustomUserSelfRegistrationHandlerComponent {
 
     @Activate
-    public open fun activate(context: ComponentContext?) {
+    protected fun activate(context: ComponentContext?) {
         log.info("**********************************CustomUserSelfRegistrationHandlerComponent activated*********************")
         println("***************CustomUserSelfRegistrationHandlerComponent activated***************************************")
         try {
@@ -48,13 +46,14 @@ open class CustomUserSelfRegistrationHandlerComponent {
                 eventHandler,
                 null
             )
-        } catch (e: Exception) {
+        } catch (e: Throwable) {
+            println("***************CustomUserSelfRegistrationHandlerComponent activated***************************************")
             log.error("Error while activating custom User selfRegistration handler component.", e)
         }
     }
 
     @Deactivate
-    public open fun deactivate(context: ComponentContext?) {
+    protected fun deactivate(context: ComponentContext?) {
         log.info("******************************CustomUserSelfRegistrationHandlerComponent deactivated***************************")
         println("***************CustomUserSelfRegistrationHandlerComponent deactivated***************************************")
         if (log.isDebugEnabled) {
@@ -69,37 +68,17 @@ open class CustomUserSelfRegistrationHandlerComponent {
         policy = ReferencePolicy.DYNAMIC,
         unbind = "unsetRealmService"
     )
-    public open fun setRealmService(realmService: RealmService?) {
-        println("***((((((((((((((((((((((((((((((((((((((((((CustomUserSelfRegistrationHandlerComponent setRealmService")
+    protected open fun setRealmService(realmService: RealmService?) {
         log.info("***((((((((((((((((((((((((((((((((((((((((((CustomUserSelfRegistrationHandlerComponent setRealmService")
         if (log.isDebugEnabled) {
             log.debug("Setting the Realm Service")
         }
     }
 
-    public open fun unsetRealmService(realmService: RealmService?) {
-        println("CustomUserSelfRegistrationHandlerComponent unsetRealmService")
+    public fun unsetRealmService(realmService: RealmService?) {
         log.info("CustomUserSelfRegistrationHandlerComponent unsetRealmService")
         log.debug("UnSetting the Realm Service")
     }
-
-//    override fun start(p0: BundleContext?) {
-//        log.info("******************************CustomUserSelfRegistrationHandlerComponent activated***************************")
-//        println("***************CustomUserSelfRegistrationHandlerComponent activated***************************************")
-//        val eventHandler = CustomUserSelfRegistrationHandler()
-//        p0?.registerService(
-//            AbstractEventHandler::class.java.name,
-//            eventHandler,
-//            null)
-//        log.info("******************************CustomUserSelfRegistrationHandlerComponent activated - end***************************")
-//        println("***************CustomUserSelfRegistrationHandlerComponent activated - end***************************************")
-//    }
-//
-//    override fun stop(p0: BundleContext?) {
-//        log.info("******************************CustomUserSelfRegistrationHandlerComponent deactivated***************************")
-//        println("***************CustomUserSelfRegistrationHandlerComponent deactivated***************************************")
-//    }
-
 
     companion object {
         private val log = LogFactory.getLog(CustomUserSelfRegistrationHandlerComponent::class.java)
