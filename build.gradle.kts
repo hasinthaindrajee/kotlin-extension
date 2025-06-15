@@ -1,6 +1,3 @@
-import org.jetbrains.kotlin.backend.wasm.ir2wasm.bind
-import org.jetbrains.kotlin.ir.backend.js.compile
-
 plugins {
     kotlin("jvm") version "1.9.23"
     id("biz.aQute.bnd.builder") version "7.1.0"
